@@ -7,8 +7,8 @@ import matplotlib.pyplot as p
 mean = 3
 sigma = 1
 count_of_elements = 8
-# квантиль уровня 0.025 для N(0,1)
-cvantil0025gaussian = 2.81
+# квантиль уровня P (X<x)=0.4750  для N(0,1)
+cvantil0025gaussian = 1.96
 
 
 def test(m=mean, c=count_of_elements):
@@ -38,9 +38,9 @@ print("result is :\n"
       )
 """
 result is :
-hypnosis than mean is 3 was true 9945 times
-hypnosis than mean isn't 3 was true 55 times
-оценка вероятности ошибки первого рода 0.0055
+hypnosis than mean is 3 was true 9454 times
+hypnosis than mean isn't 3 was true 546 times
+оценка вероятности ошибки первого рода 0.0546
 """
 
 counter = 1
