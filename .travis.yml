@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.5"
+install:
+ - pip install .
+ - pip install numpy
+ - pip install scipy
+ - pip install matplotlib
+script:
+#проверка на то, что под python 3.5 всё работает ок
+  - python problem-1.py
+  - python problem-2.py
