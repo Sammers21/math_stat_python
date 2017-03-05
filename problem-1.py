@@ -16,9 +16,7 @@ class customDist(rv_continuous):
 d = customDist(name='gaussian')
 x = d.rvs()
 
-sample = []
-for i in range(100):
-    sample.append(d.rvs())
+sample = d.rvs(size=100)
 
 import matplotlib.pyplot as m
 
@@ -29,9 +27,7 @@ m.xlabel("Value")
 m.ylabel("Count of times")
 m.grid(True)
 
-sample = []
-for i in range(1000):
-    sample.append(d.rvs())
+sample = d.rvs(size=1000)
 
 f = m.figure()
 m.hist(sample, bins=10)
