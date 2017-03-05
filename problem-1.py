@@ -16,39 +16,39 @@ class customDist(rv_continuous):
 d = customDist(name='gaussian')
 x = d.rvs()
 
-list = []
+sample = []
 for i in range(100):
-    list.append(d.rvs())
+    sample.append(d.rvs())
 
 import matplotlib.pyplot as m
 
 f = m.figure()
-m.hist(list, bins=10)
+m.hist(sample, bins=10)
 m.title("Distribution F(x)=1-exp(-exp(0.1x)) 100xValues")
 m.xlabel("Value")
 m.ylabel("Count of times")
 m.grid(True)
 
-list = []
+sample = []
 for i in range(1000):
-    list.append(d.rvs())
+    sample.append(d.rvs())
 
 f = m.figure()
-m.hist(list, bins=10)
+m.hist(sample, bins=10)
 m.title("Distribution F(x)=1-exp(-exp(0.1x)) 1000xValues")
 m.xlabel("Value")
 m.ylabel("Count of times")
 m.grid(True)
 
-list = []
+sample = []
 for i in range(1000):
     lst = []
     for y in range(30):
         lst.append(d.rvs())
-    list.append(reduce(lambda x, y: x + y, lst))
+    sample.append(reduce(lambda x, y: x + y, lst))
 
 f = m.figure()
-m.hist(list, bins=10)
+m.hist(sample, bins=10)
 m.title("Distribution Yi=SUM j=1...30 Xij i=1...30 1000xValues")
 m.xlabel("Value")
 m.ylabel("Count of times")
