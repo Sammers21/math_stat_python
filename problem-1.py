@@ -16,6 +16,8 @@ class customDist(rv_continuous):
 d = customDist(name='gaussian')
 x = d.rvs()
 
+
+#Генерируем выборку из 100 случайных велечи
 sample = d.rvs(size=100)
 
 import matplotlib.pyplot as m
@@ -27,6 +29,7 @@ m.xlabel("Value")
 m.ylabel("Count of times")
 m.grid(True)
 
+#Генерируем выборку из 1000 случайных велечин
 sample = d.rvs(size=1000)
 
 f = m.figure()
@@ -36,6 +39,8 @@ m.xlabel("Value")
 m.ylabel("Count of times")
 m.grid(True)
 
+#Генерируем выборку из 1000 случайных велечин
+#где каждая случайная величина является суммой 30 случайных велечин из исходной выборки
 sample = [sum(d.rvs(size=30)) for i in range(1000)]
 
 f = m.figure()
