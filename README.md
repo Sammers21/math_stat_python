@@ -19,9 +19,9 @@
 			б) мат ожидания с неизвестной дисперсией
 			в) дисперсии с известным мат ожиданем
 			г) дисперсии с неизвестным мат ожиданем
-	Ответ: 
-	a,б
-	![image](https://cloud.githubusercontent.com/assets/16746106/23589495/42427c94-01df-11e7-8291-6169fdc557a0.png)
-	в,г
-	![screenshot from 2017-03-05 20-03-24](https://cloud.githubusercontent.com/assets/16746106/23589484/0e09ba3c-01df-11e7-934a-f6787ce6a1ea.png)
+	
+Ответы на a и б
+![image](https://cloud.githubusercontent.com/assets/16746106/23589495/42427c94-01df-11e7-8291-6169fdc557a0.png)
+Ответы на в и г
+![screenshot from 2017-03-05 20-03-24](https://cloud.githubusercontent.com/assets/16746106/23589484/0e09ba3c-01df-11e7-934a-f6787ce6a1ea.png)
 
