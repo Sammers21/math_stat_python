@@ -36,12 +36,7 @@ m.xlabel("Value")
 m.ylabel("Count of times")
 m.grid(True)
 
-sample = []
-for i in range(1000):
-    lst = []
-    for y in range(30):
-        lst.append(d.rvs())
-    sample.append(reduce(lambda x, y: x + y, lst))
+sample = [sum(d.rvs(size=30)) for i in range(1000)]
 
 f = m.figure()
 m.hist(sample, bins=10)
