@@ -8,7 +8,7 @@ class customDist(rv_continuous):
     """"
     Distribution F(x)=1-exp(-exp(0.1x)
     """
-
+    #TODO поменять тут на своё распределение
     def _cdf(self, x, *args):
         return 1 - np.exp(-np.exp(x / 10.))
 

@@ -8,6 +8,7 @@ mean = 3
 sigma = 1
 count_of_elements = 8
 # квантиль уровня P (X<x)=0.4750  для N(0,1)
+#TODO это нужно только для 1 варианта, мб вам нужно тут что-то поменять
 cvantil0025gaussian = 1.96
 
 
@@ -17,6 +18,7 @@ def test(m=mean, c=count_of_elements):
     h_one_true = 0
     h_two_true = 0
     for i in range(10000):
+        #TODO поменять тут на своё распределение
         array_of_elements_from_distribution = l.normal(m, sigma, c)
         average = reduce(lambda x, y: x + y, array_of_elements_from_distribution) / c
         right = average + (cvantil0025gaussian * sigma / n.sqrt(c))
