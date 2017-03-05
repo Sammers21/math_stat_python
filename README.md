@@ -11,7 +11,6 @@
 #Вопросы к заданию 2
 
 #####Вопрос: Что такое ошибка первого и второго рода?
-
 #####Ответ: 
 ![screenshot from 2017-03-05 20-03-24](https://cloud.githubusercontent.com/assets/16746106/23590024/ab9cb1fa-01e9-11e7-8114-247f18ef362d.png)
 
@@ -24,11 +23,11 @@
 			в) дисперсии с известным мат ожиданем
 			г) дисперсии с неизвестным мат ожиданем
 	
-Ответы на a и б
+#####Ответы на a и б
 
 ![image](https://cloud.githubusercontent.com/assets/16746106/23589495/42427c94-01df-11e7-8291-6169fdc557a0.png)
 
-Ответы на в и г
+#####Ответы на в и г
 
 ![screenshot from 2017-03-05 20-03-24](https://cloud.githubusercontent.com/assets/16746106/23589484/0e09ba3c-01df-11e7-934a-f6787ce6a1ea.png)
 
