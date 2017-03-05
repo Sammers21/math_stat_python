@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Sammers21/math_stat_python.svg?branch=master)](https://travis-ci.org/Sammers21/math_stat_python)
+
 #Вопросы к заданию номер 1
 
 	Вопрос: Как можно сгененрировать ваше распределение с использованием лишь равномерного распреления R(0,1)?
