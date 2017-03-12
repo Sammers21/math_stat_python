@@ -29,7 +29,7 @@ m.xlabel("Value")
 m.ylabel("Count of times")
 m.grid(True)
 
-#Генерируем выборку из 1000 случайных велечин
+#Генерируем выборку из 1000 случайных величин
 sample = d.rvs(size=1000)
 
 f = m.figure()
