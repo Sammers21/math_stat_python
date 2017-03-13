@@ -13,8 +13,7 @@ class customDist(rv_continuous):
         return 1 - np.exp(-np.exp(x / 10.))
 
 
-d = customDist(name='gaussian')
-x = d.rvs()
+d = customDist()
 
 
 #Генерируем выборку из 100 случайных велечи
