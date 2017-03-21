@@ -59,7 +59,7 @@
 
 #####4
 **Вопрос:** Напишите формулу для t-статистики?  
-**Ответ:** ![image](https://wikimedia.org/api/rest_v1/media/math/render/svg/f3ca1b501196490641280f77e29568f438be79d1)  
+**Ответ:** 	![image](https://wikimedia.org/api/rest_v1/media/math/render/svg/f3ca1b501196490641280f77e29568f438be79d1)  
 
 ###Вклад
 #####Каждый из вас, кто читает это README может помочь своим однокурсникам.
