@@ -58,9 +58,10 @@
 ![screenshot from 2017-03-05 20-03-24](https://cloud.githubusercontent.com/assets/16746106/23589484/0e09ba3c-01df-11e7-934a-f6787ce6a1ea.png)
 
 #####4
-**Вопрос:** Напишите формулу для t-статистики. 
+**Вопрос:** Напишите формулу для t-статистики.  
 **Ответ:**
-![image](https://wikimedia.org/api/rest_v1/media/math/render/svg/f3ca1b501196490641280f77e29568f438be79d1)  
+![image](https://wikimedia.org/api/rest_v1/media/math/render/svg/f3ca1b501196490641280f77e29568f438be79d1)
+
 
 ###Вклад
 #####Каждый из вас, кто читает это README может помочь своим однокурсникам.
