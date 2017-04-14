@@ -1,7 +1,5 @@
-from functools import reduce
-
-from scipy.stats import rv_continuous
 import numpy as np
+from scipy.stats import rv_continuous
 
 
 class customDist(rv_continuous):

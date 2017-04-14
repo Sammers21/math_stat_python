@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import numpy.random as l
 import numpy as n
 import matplotlib.pyplot as p
