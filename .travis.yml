@@ -1,7 +1,7 @@
 language: python
 python:
   - "3.5"
-  
+  - "2.7"
 notifications:
  email: false
 install:
@@ -12,3 +12,4 @@ script:
 #проверка на то, что под python 3.5 всё работает ок
   - python -m py_compile problem-1.py
   - python -m py_compile problem-2.py
+  - python -m py_compile problem-3.py
