@@ -1,3 +1,5 @@
+import matplotlib.pyplot as p
+
 # TODO ALTER THIS DATA YOURS ONES
 x = [
     -0.45, -0.93, -0.90, 0.58, 2.56, -0.84, -0.01, 0.55, 1.34, -0.21, 1.06, -0.27, 0.11, 0.02, 2.07, 1.04,
@@ -72,6 +74,7 @@ def vdcv(arr):
     return sum_of_elems / len(arr)
 
 
+# TODO Replace this with  scipy.stats.pearsonr or yours implementation
 def pearson(x, y):
     """
     Функция подсчёта коэфициета пирсона
@@ -98,11 +101,6 @@ print("Pearson coefficient is " + str(pearson(x, y)))
 
 
 ##############################################################
-################### /PEARSON #################################
-##############################################################
-
-
-##############################################################
 ################### SPEARMAN #################################
 ##############################################################
 
@@ -120,7 +118,7 @@ def rank(arr, val):
         position += 1
     return position
 
-
+# TODO Replace this with scipy.stats.spearmanr or yours implementation
 def spearman(x, y):
     """
     Function that calculate Spearman coefficient for given X and Y arrays
@@ -162,5 +160,38 @@ def spearman(x, y):
 print(" " + str(spearman(x, y)))
 
 ##############################################################
-################## /SPEARMAN #################################
+######### Гипотеза об отсутствии статистической связи ########
 ##############################################################
+
+# Read more about this topic:
+# http://www.machinelearning.ru/wiki/index.php?title=%D0%9A%D0%BE%D1%8D%D1%84%D1%84%D0%B8%D1%86%D0%B8%D0%B5%D0%BD%D1%82_%D0%BA%D0%BE%D1%80%D1%80%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%B8_%D0%9F%D0%B8%D1%80%D1%81%D0%BE%D0%BD%D0%B0
+
+# T-statistics pearson coefficient
+tsta = pearson(x, y) * ((50 - 2) / (1 - pearson(x, y) ** 2)) ** (1 / 2)
+stydent_kvantil005 = 2.0106348
+print("t-статистика для выбоки равна " + str(tsta))
+if tsta < stydent_kvantil005 and -1 * stydent_kvantil005 < tsta:
+    print("Гипотеза о наличии статистической"
+          " связи использую коэфициент Пирсона принимается")
+else:
+    print("Гипотеза о наличии статистической"
+          " связи использую коэфициент Пирсона не принимается")
+
+# T-statistics spearman coefficient
+tsta = spearman(x, y) * ((50 - 2) / (1 - spearman(x, y) ** 2)) ** (1 / 2)
+stydent_kvantil005 = 2.0106348
+print("t-статистика для выбоки равна " + str(tsta))
+if tsta < stydent_kvantil005 and -1 * stydent_kvantil005 < tsta:
+    print("Гипотеза о наличии статистической"
+          " связи использую коэфициент Спирмана принимается")
+else:
+    print("Гипотеза о наличии статистической"
+          " связи использую коэфициент Спирмана не принимается")
+
+##############################################################
+######### Построение графика #################################
+##############################################################
+
+# TODO thinking about results
+p.scatter(x, y)
+p.show()
