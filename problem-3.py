@@ -1,8 +1,3 @@
-import scipy.stats as st
-import numpy as np
-import matplotlib.pyplot as plt
-import math
-
 # TODO ALTER THIS DATA YOURS ONES
 x = [
     -0.45, -0.93, -0.90, 0.58, 2.56, -0.84, -0.01, 0.55, 1.34, -0.21, 1.06, -0.27, 0.11, 0.02, 2.07, 1.04,
@@ -99,7 +94,7 @@ def pearson(x, y):
     return cov_X_Y / (disp_X * disp_Y) ** (1 / 2)
 
 
-print("Pearson coefficient is" + str(pearson(x, y)))
+print("Pearson coefficient is " + str(pearson(x, y)))
 
 
 ##############################################################
@@ -111,9 +106,60 @@ print("Pearson coefficient is" + str(pearson(x, y)))
 ################### SPEARMAN #################################
 ##############################################################
 
+def rank(arr, val):
+    """
+    Function that return rank of element in array
+    :param arr: array of tuples
+    :param val: element
+    :return: rank of element
+    """
+    position = 1
+    for elem in arr:
+        if elem[1] == val:
+            break
+        position += 1
+    return position
 
 
+def spearman(x, y):
+    """
+    Function that calculate Spearman coefficient for given X and Y arrays
+    
+    Alternatives:
+        scipy.stats.spearmanr(x, y)[0] <----> spearman(x,y)
+    
+    Useful link:
+        https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient
+    
+    :param x: X array
+    :param y: Y array
+    :return: Spearman coefficient for given X and Y arrays
+    """
+    pair_arr = []
+    for i in range(len(x)):
+        # append the tuple
+        pair_arr.append((x[i], y[i]))
 
+    # sort by first param
+    pair_arr = sorted(pair_arr, key=lambda pair: pair[0])
+
+    # sort by second param
+    sorted_y_arr = sorted(pair_arr, key=lambda pair: pair[1])
+
+    # replace first with its rank
+
+    rank_Y_arr = []
+    for pair in pair_arr:
+        rank_Y_arr.append(rank(sorted_y_arr, pair[1]))
+
+    sum_of_d = 0.
+    for i in range(1, 51):
+        sum_of_d += (i - rank_Y_arr[i - 1]) ** 2
+
+    return 1 - 6 * sum_of_d / (50 * (50 ** 2 - 1))
+
+
+print(" " + str(spearman(x, y)))
 
 ##############################################################
 ################## /SPEARMAN #################################
