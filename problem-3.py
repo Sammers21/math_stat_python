@@ -98,7 +98,7 @@ def pearson(x, y):
 
 
 print("Pearson coefficient is " + str(pearson(x, y)))
-
+print()
 
 ##############################################################
 ################### SPEARMAN #################################
@@ -157,7 +157,8 @@ def spearman(x, y):
     return 1 - 6 * sum_of_d / (50 * (50 ** 2 - 1))
 
 
-print(" " + str(spearman(x, y)))
+print("Spearman coefficient is " + str(spearman(x, y)))
+print()
 
 ##############################################################
 ######### Гипотеза об отсутствии статистической связи ########
