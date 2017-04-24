@@ -1,4 +1,5 @@
 import matplotlib.pyplot as p
+import numpy as np
 
 # TODO ALTER THIS DATA YOURS ONES
 x = [
@@ -194,5 +195,8 @@ else:
 ##############################################################
 
 # TODO thinking about results
-p.scatter(x, y)
+fit = np.polyfit(x, y, 1)
+fit_fn = np.poly1d(fit)
+
+p.plot(x, y, "yo", x, fit_fn(x), "-")
 p.show()
