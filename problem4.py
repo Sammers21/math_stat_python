@@ -3,7 +3,7 @@ import numpy
 import numpy.linalg as linal
 from scipy.stats import f
 from scipy.stats import t
-from problem3 import pearson
+from lib import pearson
 
 variation = 10
 k = 4
@@ -233,20 +233,12 @@ print()
 print('5. Рассчитайте корреляционную матрицу для объясняющих переменных')
 print()
 
-corr_matrix = numpy.corrcoef([y_1, x_2, x_3, x_4])
+corr_matrix = [y_1, x_2, x_3, x_4]
 names = ["Y", "X2", "X3", "X4"]
 tab = "\t"
-print(tab + names[0] + tab + names[1] + tab + names[2] + tab + names[3])
+print(tab + names[0] + tab + tab + names[1] + tab + tab + names[2] + tab + tab + names[3])
 for i in range(4):
     print(names[i], end=tab)
     for j in range(4):
-        print("%.4f" % corr_matrix[i][j], end=tab)
-    print()
-
-corr_matrix = [y_1, x_2, x_3, x_4]
-print(tab + names[0] + tab + names[1] + tab + names[2] + tab + names[3])
-for i in range(4):
-    print(names[i], end=tab)
-    for j in range(4):
-        print("%.4f" % pearson(corr_matrix[i],corr_matrix[j]), end=tab)
+        print("%.4f" % pearson(corr_matrix[i], corr_matrix[j]), end=tab)
     print()
