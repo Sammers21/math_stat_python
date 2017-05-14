@@ -187,10 +187,26 @@ for i in range(4):
         print('\tОтвергаем гипотзу о том что b{}=0'.format(i + 1))
     print()
 
-
 ##############################################################
 ######## Проверьте гипотезу о совместной значимости ##########
 ####### коэффициентов при переменных x3 и x4 #################
 ##############################################################
 
 print('4. Проверьте гипотезу о совместной значимости коэффициентов при переменных x3 и x4')
+print()
+
+# so it is the same model but assuming that x3 and x4 is equals to 0
+# that is what we called r(Restricted by some condition like x3 = x4 = 0)
+
+y_estimation_r = [coefficient_vector[0]
+                  + coefficient_vector[1] * x_2[i]
+                  for i in range(40)]
+
+q = 2  # count of "=" in condition
+
+# so condition is :
+#  x3=x4
+#  x3=0
+
+# RSS Restricted
+rss_r = rss(y_1, y_estimation_r)
