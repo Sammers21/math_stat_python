@@ -1,6 +1,12 @@
 import csv
 import numpy
 import numpy.linalg as linal
+from scipy.stats import f
+from scipy.stats import t
+
+variation = 10
+k = 4
+n = 40
 
 
 def read_column_from_csv(column_number, file):
@@ -65,4 +71,53 @@ def ls(var_to_calc):
 
 
 # LS(least squares)
-print(ls(10))
+x_2 = read_column_from_csv(column_number=0 + (variation - 1) * 4, file='data/4problem.csv')
+x_3 = read_column_from_csv(column_number=1 + (variation - 1) * 4, file='data/4problem.csv')
+x_4 = read_column_from_csv(column_number=2 + (variation - 1) * 4, file='data/4problem.csv')
+y_1 = read_column_from_csv(column_number=3 + (variation - 1) * 4, file='data/4problem.csv')
+
+# b1 b2 b3 b4
+coefficient_vector = ls(variation)
+
+y_estimation = [coefficient_vector[0]
+                + coefficient_vector[1] * x_2[i]
+                + coefficient_vector[2] * x_3[i]
+                + coefficient_vector[3] * x_4[i]
+                for i in range(40)]
+
+print(y_estimation)
+
+
+def ess(y_arr, y_arr_explained):
+    """
+    :param y_arr: input array
+    :param y_arr_explained: input array explained
+    :return: Explained sum of squares
+    """
+    mean_y = sum(y_arr) / len(y_arr)
+
+    return sum([(y_arr_explained[i] - mean_y) ** 2 for i in range(len(y_arr))])
+
+
+def rss(y_arr, y_arr_explained):
+    """
+    :param y_arr: array
+    :return: Residual sum of squares
+    """
+
+    return sum([(y_arr_explained[i] - y_arr[i]) ** 2 for i in range(len(y_arr))])
+
+
+ess_cur = ess(y_1, y_estimation)
+rss_cur = rss(y_1, y_estimation)
+# Fisher dist
+f_crit = f.ppf(0.95, k - 1, n - k)
+f_real = ess_cur / (k - 1) / (rss_cur / (n - k))
+
+print('F (95%, k-1, n-4) is {}'.format(f_crit))
+print('ess / (k - 1) / (rss / (n - k)) is {}'.format(f_real))
+
+if f_crit < f_real:
+    print('Отвергаем гипотзу о значимости модели регрессии в целом (b1=b2=b3=b4=0)')
+else:
+    print('Принмаем гипотзу о значимости модели регрессии в целом (b1=b2=b3=b4=0)')
