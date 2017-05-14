@@ -4,6 +4,7 @@ import numpy.linalg as linal
 from scipy.stats import f
 from scipy.stats import t
 from lib import pearson
+import matplotlib.pyplot as plt
 
 variation = 10
 k = 4
@@ -27,8 +28,9 @@ def read_column_from_csv(column_number, file):
     return column_array
 
 
-def ls(var_to_calc):
+def ls(var_to_calc, ridge=0):
     """
+    :param ridge: ridge coefficient
     :param var_to_calc: variant from 1 to 10
     :return: array of LS(least squares) coefficients
     """
@@ -37,7 +39,12 @@ def ls(var_to_calc):
 
     # (Xt * X)
     # numpy.dot is a matrix multiplication
-    x_step1 = numpy.dot(x.T, x)
+
+    # if ridge is none 0
+    ar = numpy.zeros((4, 4), float)
+    numpy.fill_diagonal(ar, float(ridge))
+
+    x_step1 = numpy.dot(x.T, x) + ar
 
     # (Xt * X) ^-1
     x_step2 = linal.inv(x_step1)
@@ -242,3 +249,38 @@ for i in range(4):
     for j in range(4):
         print("%.4f" % pearson(corr_matrix[i], corr_matrix[j]), end=tab)
     print()
+
+##############################################################
+######## Часть 2. Оценки Риджа ###############################
+##############################################################
+
+print('Постройте график зависимости оценок коэффициентов регрессии от λ')
+
+
+def draw_plot(title, sample_1, title_1, sample_2, title_2):
+    plt.title(title)
+    plt.xlabel(title_1)
+    plt.ylabel(title_2)
+    plt.plot(sample_1, sample_2)
+    plt.show()
+
+
+lmd = []
+b1 = []
+b2 = []
+b3 = []
+b4 = []
+for i in range(21):
+    res = ls(variation, ridge=(i / 10))
+    lmd.append(i / 10)
+    b1.append(res[0])
+    b2.append(res[1])
+    b3.append(res[2])
+    b4.append(res[3])
+    print("𝜆 = " + str(i / 10) + ";\t" + str(res))
+
+print()
+draw_plot("Зависимость β1 от λ", lmd, "λ", b1, "β1")
+draw_plot("Зависимость β2 от λ", lmd, "λ", b2, "β2")
+draw_plot("Зависимость β3 от λ", lmd, "λ", b3, "β3")
+draw_plot("Зависимость β4 от λ", lmd, "λ", b4, "β4")
