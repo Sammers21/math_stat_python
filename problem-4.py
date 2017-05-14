@@ -20,50 +20,49 @@ def read_column_from_csv(column_number, file):
     return column_array
 
 
-varinat = 10
-varinat -= 1
+def ls(var_to_calc):
+    """
+    :param var_to_calc: variant from 1 to 10
+    :return: array of LS(least squares) coefficients
+    """
 
-x_2 = read_column_from_csv(column_number=0 + varinat * 4, file='data/4problem.csv')
-x_3 = read_column_from_csv(column_number=1 + varinat * 4, file='data/4problem.csv')
-x_4 = read_column_from_csv(column_number=2 + varinat * 4, file='data/4problem.csv')
-y_1 = read_column_from_csv(column_number=3 + varinat * 4, file='data/4problem.csv')
+    var_to_calc -= 1
 
-len_of_data = len(y_1)
+    x_2 = read_column_from_csv(column_number=0 + var_to_calc * 4, file='data/4problem.csv')
+    x_3 = read_column_from_csv(column_number=1 + var_to_calc * 4, file='data/4problem.csv')
+    x_4 = read_column_from_csv(column_number=2 + var_to_calc * 4, file='data/4problem.csv')
+    y_1 = read_column_from_csv(column_number=3 + var_to_calc * 4, file='data/4problem.csv')
 
-# vector of MSE coefficients is (Xt * X) ^-1 * Xt * Y
+    len_of_data = len(y_1)
 
-# 1. make vector-column
-X = numpy.ones((len_of_data, 1), dtype=float)
+    # vector of MSE coefficients is (Xt * X) ^-1 * Xt * Y
+    # 1. make vector-column
+    x = numpy.ones((len_of_data, 1), dtype=float)
 
-X_2 = numpy.array([x_2]).T
-X_3 = numpy.array([x_3]).T
-X_4 = numpy.array([x_4]).T
-Y_1 = numpy.array([y_1]).T
+    x_2 = numpy.array([x_2]).T
+    x_3 = numpy.array([x_3]).T
+    x_4 = numpy.array([x_4]).T
+    y_1 = numpy.array([y_1]).T
 
-X = numpy.concatenate((X, X_2), axis=1)
-X = numpy.concatenate((X, X_3), axis=1)
-X = numpy.concatenate((X, X_4), axis=1)
+    x = numpy.concatenate((x, x_2), axis=1)
+    x = numpy.concatenate((x, x_3), axis=1)
+    x = numpy.concatenate((x, x_4), axis=1)
 
-print(X)
+    # (Xt * X)
+    # numpy.dot is a matrix multiplication
+    x_step1 = numpy.dot(x.T, x)
 
-# (Xt * X)
-# numpy.dot is a matrix multiplication
+    # (Xt * X) ^-1
+    x_step2 = linal.inv(x_step1)
 
-X_step1 = numpy.dot(X.T, X)
+    # (Xt * X) ^-1 * Xt
+    x_step3 = numpy.dot(x_step2, x.T)
 
-# (Xt * X) ^-1
+    # (Xt * X) ^-1 * Xt * Y
+    coefficient_vector = numpy.dot(x_step3, y_1)
 
-X_step2 = linal.inv(X_step1)
+    return coefficient_vector.T[0]
 
-# (Xt * X) ^-1 * Xt
 
-X_step3 = numpy.dot(X_step2, X.T)
-
-# (Xt * X) ^-1 * Xt * Y
-
-coef_vector = numpy.dot(X_step3, Y_1)
-
-print(X_step1)
-print(X_step2)
-print(X_step3)
-print(coef_vector)
+# LS(least squares)
+print(ls(10))
