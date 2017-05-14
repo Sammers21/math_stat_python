@@ -6,7 +6,7 @@ from scipy.stats import t
 from lib import pearson
 import matplotlib.pyplot as plt
 
-variation = 10
+variation = int(input("Введите ваш вариант:"))
 k = 4
 n = 40
 
@@ -249,13 +249,14 @@ for i in range(4):
     for j in range(4):
         print("%.4f" % pearson(corr_matrix[i], corr_matrix[j]), end=tab)
     print()
+print()
 
 ##############################################################
 ######## Часть 2. Оценки Риджа ###############################
 ##############################################################
 
 print('Постройте график зависимости оценок коэффициентов регрессии от λ')
-
+print()
 
 def draw_plot(title, sample_1, title_1, sample_2, title_2):
     plt.title(title)
