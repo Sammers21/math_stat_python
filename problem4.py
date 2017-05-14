@@ -3,6 +3,7 @@ import numpy
 import numpy.linalg as linal
 from scipy.stats import f
 from scipy.stats import t
+from problem3 import pearson
 
 variation = 10
 k = 4
@@ -148,12 +149,12 @@ y_estimation = [coefficient_vector[0]
                 + coefficient_vector[3] * x_4[i]
                 for i in range(40)]
 
-ess_cur = ess(y_1, y_estimation)
-rss_cur = rss(y_1, y_estimation)
+ess_ur = ess(y_1, y_estimation)
+rss_ur = rss(y_1, y_estimation)
 
 # Fisher dist
 f_crit = f.ppf(0.95, k - 1, n - k)
-f_real = ess_cur / (k - 1) / (rss_cur / (n - k))
+f_real = ess_ur / (k - 1) / (rss_ur / (n - k))
 
 print('F (95%, k-1, n-4) is {}'.format(f_crit))
 print('ess / (k - 1) / (rss / (n - k)) is {}'.format(f_real))
@@ -195,7 +196,7 @@ for i in range(4):
 print('4. Проверьте гипотезу о совместной значимости коэффициентов при переменных x3 и x4')
 print()
 
-# so it is the same model but assuming that x3 and x4 is equals to 0
+# it is the same model but assuming that x3 and x4 is equals to 0
 # that is what we called r(Restricted by some condition like x3 = x4 = 0)
 
 y_estimation_r = [coefficient_vector[0]
@@ -210,3 +211,42 @@ q = 2  # count of "=" in condition
 
 # RSS Restricted
 rss_r = rss(y_1, y_estimation_r)
+
+f_r_critical = f.ppf(0.95, q, n - k)
+f_r_real = (rss_r - rss_ur) / q / (rss_ur / (n - k))
+
+print('F (95%, q, n-k) is {}'.format(f_crit))
+print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_real))
+
+if f_r_critical < f_r_real:
+    print('Отвергаем гипотзу  о совместной значимости коэффициентов при переменных x3 и x4')
+else:
+    print('Принмаем гипотзу  о совместной значимости коэффициентов при переменных x3 и x4')
+
+print()
+
+##############################################################
+######## Рассчитайте корреляционную матрицу ##################
+######## для объясняющих переменных ##########################
+##############################################################
+
+print('5. Рассчитайте корреляционную матрицу для объясняющих переменных')
+print()
+
+corr_matrix = numpy.corrcoef([y_1, x_2, x_3, x_4])
+names = ["Y", "X2", "X3", "X4"]
+tab = "\t"
+print(tab + names[0] + tab + names[1] + tab + names[2] + tab + names[3])
+for i in range(4):
+    print(names[i], end=tab)
+    for j in range(4):
+        print("%.4f" % corr_matrix[i][j], end=tab)
+    print()
+
+corr_matrix = [y_1, x_2, x_3, x_4]
+print(tab + names[0] + tab + names[1] + tab + names[2] + tab + names[3])
+for i in range(4):
+    print(names[i], end=tab)
+    for j in range(4):
+        print("%.4f" % pearson(corr_matrix[i],corr_matrix[j]), end=tab)
+    print()

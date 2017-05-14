@@ -11,7 +11,7 @@ install:
  - pip install matplotlib
 script:
 #проверка на то, что под python 3.5 всё работает ок
-  - python -m py_compile problem-1.py
-  - python -m py_compile problem-2.py
-  - python -m py_compile problem-3.py
-  - python -m py_compile problem-4.py
+  - python -m py_compile problem1.py
+  - python -m py_compile problem2.py
+  - python -m py_compile problem3.py
+  - python -m py_compile problem4.py
