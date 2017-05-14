@@ -14,3 +14,4 @@ script:
   - python -m py_compile problem-1.py
   - python -m py_compile problem-2.py
   - python -m py_compile problem-3.py
+  - python -m py_compile problem-4.py
