@@ -1,5 +1,17 @@
 [![Build Status](https://travis-ci.org/Sammers21/math_stat_python.svg?branch=master)](https://travis-ci.org/Sammers21/math_stat_python)
 
+# Как запустить?
+
+```
+$ git clone https://github.com/Sammers21/math_stat_python
+$ cd math_stat_python
+$ python problem<номер_задачи>.py
+```
+
+**Заметка:** для запуска всех задач необходимы python-библиотеки: scipy, numpy, matplotlib, pandas, statsmodels. Версия python 3.5.2 или выше
+
+
+
 # Вопросы к заданию номер 1
 
 ### №1
