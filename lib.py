@@ -1,3 +1,22 @@
+import csv
+
+def read_column_from_csv(column_number, file):
+    column_array = []
+    # read file
+    with open(file) as f:
+        reader = csv.reader(f)
+
+        column_array = [row[column_number] for row in reader]
+
+        # pop string element like 'x2_1'
+        column_array.pop(0)
+
+        # make values float
+        column_array = list(map(lambda x: float(x), column_array))
+
+    return column_array
+
+
 def avg(array):
     """
     :param array: Массив с числами
