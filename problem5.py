@@ -1,7 +1,24 @@
-from lib import read_column_from_csv
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
-import numpy as np
+
+from lib import read_column_from_csv
+
+
+def draw_scatter(title, sample_1, title_1, sample_2, title_2):
+    plt.title(title)
+    plt.xlabel(title_1)
+    plt.ylabel(title_2)
+
+    plt.scatter(sample_1, sample_2)
+    plt.show()
+
+
+def draw_histogram(title, sample, bins):
+    plt.title(title)
+    plt.hist(sample, bins=bins)
+    plt.show()
 
 """
 Немного теории:
@@ -55,7 +72,6 @@ df = pd.DataFrame({
     "brick": brick,
     "bal": bal
 })
-k = 10
 n = len(price)
 
 # about OLS - Ordinary least squares
@@ -70,22 +86,33 @@ n = len(price)
 # a single regressor on the right-hand side.
 # https://en.wikipedia.org/wiki/Ordinary_least_squares
 
+#TODO Выбрать модель
+# Для этого нужно прочесть: https://github.com/bdemeshev/epsilon/raw/master/e_001/functional-form/functional-form.pdf
+
 # Модель номер 1 - Линейная
 lin_mod = smf.ols(formula="price ~ totsp + dist + walk + d2 + d3 + d4 + brick + bal + floor", data=df)
 lin_res = lin_mod.fit()
 print("RSS =", sum(np.square(lin_res.resid)))
 print(lin_res.summary())
-# В этом случае у меня RSS у меня получился 432242, что достаточно много. Ищем другую модель
+draw_histogram("Lear regression (ost)", lin_res.resid, 100)
+draw_scatter("Lear regression", lin_res.fittedvalues, "fitted_price", lin_res.resid, "price - fitted_price")
 
-# Модель номер 2 - С логорифмом
-log_mod = smf.ols(
-    formula="np.log(price) ~ totsp + dist + walk + d2 + d3 + d4 + brick + bal + floor", data=df)
-log_res = log_mod.fit()
-print("RSS =", sum(np.square(log_res.resid)))
-print(log_res.summary())
 
-# Тут RSS = 15.702 что вполне приёмлемо для суммы квадратов остатков 463 измерений и что гораздо меньше первого случая.
-# Я решил на этом остановиться
+# Модель номер 2 - ПолуЛогорифмическая
+l_h_mod = smf.ols(formula="np.log(price)~ totsp + dist + walk + d2 + d3 + d4 + brick + bal + floor", data=df)
+l_h_res = l_h_mod.fit()
+print("RSS =", sum(np.square(l_h_res.resid)))
+print(l_h_res.summary())
+draw_histogram("Log_h (ost)", l_h_res.resid, 20)
+draw_scatter("Log_h res", l_h_res.fittedvalues, "log(fitted_price)", l_h_res.resid, "log(price) - log(fitted_price)")
+
+# Модель номер 3 - Логорифмическая
+l_mod = smf.ols(formula="np.log(price)~ np.log(totsp) + dist + walk + d2 + d3 + d4 + brick + bal + floor", data=df)
+l_res = l_mod.fit()
+print("RSS =", sum(np.square(l_res.resid)))
+print(l_res.summary())
+draw_histogram("Log (ost)", l_res.resid, 20)
+draw_scatter("Log res", l_res.fittedvalues, "log(fitted_price)", l_res.resid, "log(price) - log(fitted_price)")
 
 """
 #TODO После того как вы нашли хорошие коэфициенты
