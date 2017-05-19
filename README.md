@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/Sammers21/math_stat_python.svg?branch=master)](https://travis-ci.org/Sammers21/math_stat_python)
 
+# Как делать задания?
+
+Привидённые python- скрипты это пример где вам нужно понять, что поменять так, что бы все работало для вашего варианта. По этой же причине код был написан.
+
 # Как запустить?
 
 ```
