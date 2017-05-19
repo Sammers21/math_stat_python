@@ -15,3 +15,4 @@ script:
   - python -m py_compile problem2.py
   - python -m py_compile problem3.py
   - python -m py_compile problem4.py
+  - python -m py_compile problem5.py
