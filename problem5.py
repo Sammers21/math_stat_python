@@ -26,6 +26,10 @@ import numpy as np
 
 variation = 1
 
+# TODO Вы должны сделать свой .csv файл из того что прислал Фурманов. Нужно удалить из него все строки
+# в которых есть пустые элементы. Пустые строки в каждом варианте разные, поэтому удалите
+# только те, что пустые именно в вашем варианте. После этих операций сохраните его как data/5problem.csv
+
 bal = read_column_from_csv(column_number=0 + (variation - 1) * 11, file='data/5problem.csv')
 brick = read_column_from_csv(column_number=1 + (variation - 1) * 11, file='data/5problem.csv')
 d2 = read_column_from_csv(column_number=2 + (variation - 1) * 11, file='data/5problem.csv')
@@ -69,5 +73,16 @@ n = len(price)
 # Модель номер 1 - Линейная
 lin_mod = smf.ols(formula="price ~ totsp + dist + walk + d2 + d3 + d4 + brick + bal + floor", data=df)
 lin_res = lin_mod.fit()
-print("RSS =",sum(np.square(lin_res.resid)))
+print("RSS =", sum(np.square(lin_res.resid)))
 print(lin_res.summary())
+# В этом случае у меня RSS у меня получился 432242, что достаточно много. Ищем другую модель
+
+# Модель номер 2 - С логорифмом
+log_mod = smf.ols(
+    formula="np.log(price) ~ totsp + dist + walk + d2 + d3 + d4 + brick + bal + floor", data=df)
+log_res = log_mod.fit()
+print("RSS =", sum(np.square(log_res.resid)))
+print(log_res.summary())
+
+# Тут RSS = 15.702 что вполне приёмлемо для суммы квадратов остатков 463 измерений и что гораздо меньше первого случая.
+# Я решил на этом остановиться
