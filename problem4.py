@@ -258,10 +258,11 @@ print()
 print('Постройте график зависимости оценок коэффициентов регрессии от λ')
 print()
 
-def draw_plot(title, sample_1, title_1, sample_2, title_2):
-    plt.title(title)
-    plt.xlabel(title_1)
-    plt.ylabel(title_2)
+
+def draw_plot(sample_1, sample_2, numb):
+    plt.title("Dependence of lambda from b{}".format(numb))
+    plt.xlabel("lambda")
+    plt.ylabel("b{}".format(numb))
     plt.plot(sample_1, sample_2)
     plt.show()
 
@@ -281,7 +282,7 @@ for i in range(21):
     print("𝜆 = " + str(i / 10) + ";\t" + str(res))
 
 print()
-draw_plot("Зависимость β1 от λ", lmd, "λ", b1, "β1")
-draw_plot("Зависимость β2 от λ", lmd, "λ", b2, "β2")
-draw_plot("Зависимость β3 от λ", lmd, "λ", b3, "β3")
-draw_plot("Зависимость β4 от λ", lmd, "λ", b4, "β4")
+draw_plot(lmd, b1, 1)
+draw_plot(lmd, b2, 2)
+draw_plot(lmd, b3, 3)
+draw_plot(lmd, b4, 4)
