@@ -1,6 +1,7 @@
 import csv
 
-def read_column_from_csv(column_number, file):
+
+def read_column_from_csv(column_number, file, type='f'):
     column_array = []
     # read file
     with open(file) as f:
@@ -12,7 +13,9 @@ def read_column_from_csv(column_number, file):
         column_array.pop(0)
 
         # make values float
-        column_array = list(map(lambda x: float(x), column_array))
+        print(column_array)
+        if type == 'f':
+            column_array = list(map(lambda x: float(x), column_array))
 
     return column_array
 
