@@ -14,7 +14,13 @@ $ python problem<номер_задачи>.py
 
 **Заметка:** для запуска всех задач необходимы python-библиотеки: scipy, numpy, matplotlib, pandas, statsmodels. Версия python 3.5.2 или выше
 
-
+# Пример пояснительной записки к: 
+    
+**Номеру 4:**
+    https://www.evernote.com/shard/s267/sh/20c765ce-65bd-4590-9455-72512dc2ad3a/1795f8e28d6b3966d58e94c024d9378b
+    
+**Номеру 5:**
+https://www.evernote.com/shard/s267/sh/49f91974-1090-4d64-9315-60c0a1b80fc2/9bfe1f4704883bf9a8e0ba073188827e
 
 # Вопросы к заданию номер 1
 
