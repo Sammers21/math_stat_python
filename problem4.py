@@ -2,13 +2,12 @@ import numpy
 import numpy.linalg as linal
 from scipy.stats import f
 from scipy.stats import t
-from lib import pearson
+from lib import pearson, read_column_from_csv
 import matplotlib.pyplot as plt
 
 variation = int(input("Введите ваш вариант:"))
 k = 4
 n = 40
-
 
 
 def ls(var_to_calc, ridge=0):
