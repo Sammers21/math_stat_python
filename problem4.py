@@ -149,9 +149,9 @@ print('F (95%, k-1, n-4) is {}'.format(f_crit))
 print('ess / (k - 1) / (rss / (n - k)) is {}'.format(f_real))
 
 if f_crit < f_real:
-    print('Отвергаем гипотзу о значимости модели регрессии в целом (b1=b2=b3=b4=0)')
+    print('Отвергаем гипотезу о значимости модели регрессии в целом (b1=b2=b3=b4=0)')
 else:
-    print('Принмаем гипотзу о значимости модели регрессии в целом (b1=b2=b3=b4=0)')
+    print('Принимаем гипотезу о значимости модели регрессии в целом (b1=b2=b3=b4=0)')
 
 print()
 
@@ -168,7 +168,7 @@ print('Критическое значение t~(n-k):{}'.format(t_critical))
 print()
 
 for i in range(4):
-    t_val = coefficient_vector[i] / (coefficient_variance(i, y_1, y_estimation, get_x_matrix(variation))) ** (1 / 2)
+    t_val = (coefficient_vector[i] - 0) / (coefficient_variance(i, y_1, y_estimation, get_x_matrix(variation))) ** (1 / 2)
     print("Гипотеза H0: коэфциент b{}=0".format(i + 1))
     print('Критерий значимости для коэфициента b{}:\t{}'.format(i + 1, t_val))
     if t_critical >= t_val >= -t_critical:
@@ -204,13 +204,13 @@ rss_r = rss(y_1, y_estimation_r)
 f_r_critical = f.ppf(0.95, q, n - k)
 f_r_real = (rss_r - rss_ur) / q / (rss_ur / (n - k))
 
-print('F (95%, q, n-k) is {}'.format(f_r_critical))
-print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_r_real))
+print('F (95%, q, n-k) is {}'.format(f_crit))
+print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_real))
 
 if f_r_critical < f_r_real:
-    print('Отвергаем гипотзу  о совместной значимости коэффициентов при переменных x3 и x4')
+    print('Отвергаем гипотезу  о совместной значимости коэффициентов при переменных x3 и x4')
 else:
-    print('Принмаем гипотзу  о совместной значимости коэффициентов при переменных x3 и x4')
+    print('Принимаем гипоетзу  о совместной значимости коэффициентов при переменных x3 и x4')
 
 print()
 
