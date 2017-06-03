@@ -19,7 +19,7 @@ def ls(var_to_calc, ridge=0):
 
     x = get_x_matrix(var_to_calc)
 
-    # (Xt * X)
+    # (X^T * X)
     # numpy.dot is a matrix multiplication
 
     # if ridge is none 0
@@ -28,13 +28,13 @@ def ls(var_to_calc, ridge=0):
 
     x_step1 = numpy.dot(x.T, x) + ar
 
-    # (Xt * X) ^-1
+    # (X^T * X)^-1
     x_step2 = linal.inv(x_step1)
 
-    # (Xt * X) ^-1 * Xt
+    # (X^T * X)^-1 * X^T
     x_step3 = numpy.dot(x_step2, x.T)
 
-    # (Xt * X) ^-1 * Xt * Y
+    # (X^T * X)^-1 * X^T * Y
     y_1 = read_column_from_csv(column_number=3 + (var_to_calc - 1) * 4, file='data/4problem.csv')
     y_1 = numpy.array([y_1]).T
     coefficient_vector = numpy.dot(x_step3, y_1)
@@ -52,7 +52,7 @@ def get_x_matrix(var_to_calc):
 
     len_of_data = len(y_1)
 
-    # vector of MSE coefficients is (Xt * X) ^-1 * Xt * Y
+    # vector of MSE coefficients is (X^T * X)^-1 * X^T * Y
     # 1. make vector-column
 
     x = numpy.ones((len_of_data, 1), dtype=float)
@@ -98,7 +98,7 @@ def coefficient_variance(number_of_coefficient, y_arr, y_explained, x_matrix):
     """
     variance_e_2 = rss(y_arr, y_explained) / (n - k)
 
-    # (Xt * X)^-1
+    # (X^T * X)^-1
     mmatrix = linal.inv(numpy.dot(x_matrix.T, x_matrix))
 
     v_matrix = numpy.dot(variance_e_2, mmatrix)
@@ -169,8 +169,8 @@ print()
 
 for i in range(4):
     t_val = (coefficient_vector[i] - 0) / (coefficient_variance(i, y_1, y_estimation, get_x_matrix(variation))) ** (1 / 2)
-    print("Гипотеза H0: коэфциент b{}=0".format(i + 1))
-    print('Критерий значимости для коэфициента b{}:\t{}'.format(i + 1, t_val))
+    print("Гипотеза H0: коэффициент b{}=0".format(i + 1))
+    print('Критерий значимости для коэффициента b{}:\t{}'.format(i + 1, t_val))
     if t_critical >= t_val >= -t_critical:
         print('\tПринимаем гипотезу о том что b{}=0'.format(i + 1))
     else:
@@ -210,7 +210,7 @@ print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_real))
 if f_r_critical < f_r_real:
     print('Отвергаем гипотезу  о совместной значимости коэффициентов при переменных x3 и x4')
 else:
-    print('Принимаем гипоетзу  о совместной значимости коэффициентов при переменных x3 и x4')
+    print('Принимаем гипотезу  о совместной значимости коэффициентов при переменных x3 и x4')
 
 print()
 
