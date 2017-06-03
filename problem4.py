@@ -172,9 +172,9 @@ for i in range(4):
     print("Гипотеза H0: коэфциент b{}=0".format(i + 1))
     print('Критерий значимости для коэфициента b{}:\t{}'.format(i + 1, t_val))
     if t_critical >= t_val >= -t_critical:
-        print('\tПринмаем гипотзу о том что b{}=0'.format(i + 1))
+        print('\tПринимаем гипотезу о том что b{}=0'.format(i + 1))
     else:
-        print('\tОтвергаем гипотзу о том что b{}=0'.format(i + 1))
+        print('\tОтвергаем гипотезу о том что b{}=0'.format(i + 1))
     print()
 
 ##############################################################
@@ -204,8 +204,8 @@ rss_r = rss(y_1, y_estimation_r)
 f_r_critical = f.ppf(0.95, q, n - k)
 f_r_real = (rss_r - rss_ur) / q / (rss_ur / (n - k))
 
-print('F (95%, q, n-k) is {}'.format(f_crit))
-print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_real))
+print('F (95%, q, n-k) is {}'.format(f_r_critical))
+print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_r_real))
 
 if f_r_critical < f_r_real:
     print('Отвергаем гипотзу  о совместной значимости коэффициентов при переменных x3 и x4')
