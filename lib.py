@@ -43,9 +43,11 @@ def read_column_from_csv(column_number, file, type='f', pop=True):
             column_array.pop(0)
 
         # make values float
-        print(column_array)
         if type == 'f':
             column_array = list(map(lambda x: float(x), column_array))
+        # make values int
+        if type == 'i':
+            column_array = list(map(lambda x: int(x), column_array))
 
     return column_array
 
@@ -177,3 +179,22 @@ def spearman(x, y):
         sum_of_d += (i - rank_Y_arr[i - 1]) ** 2
 
     return 1 - 6 * sum_of_d / (50 * (50 ** 2 - 1))
+
+def ess(y_arr, y_arr_explained):
+    """
+    :param y_arr: input array
+    :param y_arr_explained: input array explained
+    :return: Explained sum of squares
+    """
+    mean_y = sum(y_arr) / len(y_arr)
+
+    return sum([(y_arr_explained[i] - mean_y) ** 2 for i in range(len(y_arr))])
+
+
+def rss(y_arr, y_arr_explained):
+    """
+    :param y_arr: array
+    :return: Residual sum of squares
+    """
+
+    return sum([(y_arr_explained[i] - y_arr[i]) ** 2 for i in range(len(y_arr))])
