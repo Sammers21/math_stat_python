@@ -243,7 +243,7 @@ print()
 
 def draw_plot(sample_1, sample_2, numb):
     plt.figure(num="B{}".format(numb))
-    plt.title("Dependence of lambda from b{}".format(numb))
+    plt.title("Dependence of b{} from lambda".format(numb))
     plt.xlabel("lambda")
     plt.ylabel("b{}".format(numb))
     plt.plot(sample_1, sample_2)
