@@ -164,7 +164,7 @@ print('3. Проверьте значимость  коэффициентов п
 print()
 
 t_critical = t.ppf(0.95, n - k)
-print('Критическое значение t~(n-k):{}'.format(t_critical))
+print('Критическое значение t(n-k)~{}'.format(t_critical))
 print()
 
 for i in range(4):
@@ -172,9 +172,9 @@ for i in range(4):
     print("Гипотеза H0: коэффициент b{}=0".format(i + 1))
     print('Критерий значимости для коэффициента b{}:\t{}'.format(i + 1, t_val))
     if t_critical >= t_val >= -t_critical:
-        print('\tПринимаем гипотезу о том что b{}=0'.format(i + 1))
+        print('\tПринимаем гипотезу о том, что b{}=0'.format(i + 1))
     else:
-        print('\tОтвергаем гипотезу о том что b{}=0'.format(i + 1))
+        print('\tОтвергаем гипотезу о том, что b{}=0'.format(i + 1))
     print()
 
 ##############################################################
