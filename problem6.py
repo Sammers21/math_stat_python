@@ -1,6 +1,8 @@
 import pandas as pd
 import statsmodels.formula.api as smf
 import math
+from lib import rss, ess
+from scipy.stats import f
 
 from lib import mk_data_var, read_column_from_csv
 
@@ -29,9 +31,8 @@ res = model.fit()
 print(res.summary())
 
 # Проверьте значимость модели в целом
-for i in range(len(res.params)):
-    print(res.params[i])
 
+# Прогноз выживания по модели
 y_estimate = [1
               if
               math.exp(
@@ -44,22 +45,16 @@ y_estimate = [1
 
               for i in range(len(sex))]
 
-print(y_estimate)
+ess_y = ess(survived, y_estimate)
+rss_y = rss(survived, y_estimate)
+k = 4  # кол-во коэффициентов (с учётом свободного)
+n = len(survived)  # объём выборки
 
-"""
-# ESS=ess(su)
-# RSS=rss()
+f_crit = f.ppf(0.95, k - 1, n - k)
+f_real = ess_y / (k - 1) / (rss_y / (n - k))
 
-model = smf.logit(formula="survived ~ 1 + C(sex) + C(class_1) + C(class_2) + C(class_3)", data=df)
-res = model.fit()
-print(res.summary())
+if f_crit < f_real:
+    print('Отвергаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
+else:
+    print('Принмаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
 
-model = smf.ols(formula="survived ~ 1 + sex + class_1 + class_2 + class_3", data=df)
-res = model.fit()
-print(res.summary())
-
-model = smf.logit(formula="survived ~ 1 + C(sex) + C(class_1) + C(class_2) + C(sex * class_1) + C(sex * class_2)",
-                  data=df)
-res = model.fit()
-print(res.summary())
-"""
