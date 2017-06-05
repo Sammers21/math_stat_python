@@ -192,3 +192,16 @@ https://www.evernote.com/shard/s267/sh/49f91974-1090-4d64-9315-60c0a1b80fc2/9bfe
 
 **Вопрос:** Тесты на правильность спецификации: график «остатки-прогнозы», тест Рамсея.  
 **Ответ:** Читаем [статью](https://github.com/bdemeshev/epsilon/raw/master/e_001/functional-form/functional-form.pdf) Фурманова К.К.!  
+
+# Вопросы к заданию номер 6
+
+### №1
+
+**Вопрос:** Линейная модель вероятности. Модели logit и probit, их оценивание методом
+максимального правдоподобия.
+ 
+**Ответ:**
+ 
+![image](https://cloud.githubusercontent.com/assets/16746106/26805801/6cbfc3c2-4a56-11e7-95df-89a732d56349.png)
+![image](https://cloud.githubusercontent.com/assets/16746106/26805842/a0116bc2-4a56-11e7-821d-3689cb2236fc.png)
+![image](https://cloud.githubusercontent.com/assets/16746106/26805858/b8b0c9ca-4a56-11e7-9c99-7d3f6f84b0e3.png)
