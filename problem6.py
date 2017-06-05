@@ -183,6 +183,10 @@ y_estimate = [1
 
               for i in range(len(sex))]
 
+# тест вальда
+hypotheses = '(sex:class_1 = 0), (sex:class_2 = 0)'
+print(res.wald_test(hypotheses))
+print(res.wald_test_terms())
 
 # В данном случае, показателем того, на сколько модель расходится с реальным положенимем дел
 # является RSS. В данном случаем значение RSS - колчество наблюдений, где модель расхоидтся с данными.
