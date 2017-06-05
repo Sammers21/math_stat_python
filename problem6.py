@@ -2,7 +2,7 @@ import pandas as pd
 import statsmodels.formula.api as smf
 import math
 from lib import rss, ess
-from scipy.stats import f, norm
+from scipy.stats import f, norm, chi
 import numpy as np
 
 from lib import mk_data_var, read_column_from_csv
@@ -34,9 +34,10 @@ df = pd.DataFrame({
 
 
 # Оцените модель логит для вероятности выжить в зависимости от пола, возраста и класса каюты:
-model = smf.logit(formula="survived ~ sex + class_1 + class_2 ", data=df)
-res = model.fit()
+model_logit_1 = smf.logit(formula="survived ~ sex + class_1 + class_2 ", data=df)
+res = model_logit_1.fit()
 print(res.summary())
+loglikelihood_logit_1 = res.llf
 
 # Проверьте значимость модели в целом
 
@@ -79,10 +80,10 @@ print('Модель logit расходится с данными в {} случ�
 
 
 # Оцените модель логит для вероятности выжить в зависимости от пола, возраста и класса каюты:
-model = smf.probit(formula="survived ~ 1 + sex + class_1 + class_2", data=df)
-res = model.fit()
+model_probit_1 = smf.probit(formula="survived ~ 1 + sex + class_1 + class_2", data=df)
+res = model_probit_1.fit()
 print(res.summary())
-
+loglikelihood_probit_1 = res.llf
 # Проверьте значимость модели в целом
 
 # Прогноз выживания по модели
@@ -122,9 +123,10 @@ print('Модель probit расходится с данными в {} случ
 
 
 # Оцените модель логит для вероятности выжить в зависимости от пола, возраста и класса каюты:
-model = smf.ols(formula="survived ~ 1 + sex + class_1 + class_2", data=df)
-res = model.fit()
+model_ols_1 = smf.ols(formula="survived ~ 1 + sex + class_1 + class_2", data=df)
+res = model_ols_1.fit()
 print(res.summary())
+loglikelihood_ols_1 = res.llf
 
 # Проверьте значимость модели в целом
 
@@ -163,9 +165,10 @@ print('Модель ols расходится с данными в {} случа�
 
 
 # Оцените модель логит для вероятности выжить в зависимости от пола, возраста и класса каюты:
-model = smf.logit(formula="survived ~ sex + class_1 + class_2 + sex  * class_1 + sex * class_2 ", data=df)
-res = model.fit()
+model_logit_2 = smf.logit(formula="survived ~ sex + class_1 + class_2 + sex  * class_1 + sex * class_2 ", data=df)
+res = model_logit_2.fit()
 print(res.summary())
+loglikelihood_logit_2 = res.llf
 
 # Проверьте значимость модели в целом
 
@@ -191,6 +194,8 @@ print(res.wald_test(hypotheses))
 # т.к.  48.20634159 > 3.4050690848332066e-11 то отвергаем гипотезу о том что H0:b4=b5=0
 
 print(res.wald_test_terms())
+# Chi2 это КСИ КВАДРАТ  https://en.wikipedia.org/wiki/Chi-squared_distribution
+
 #                  chi2                  P>chi2  df constraint
 # Intercept     1.022117     0.31201739467110934              1
 # sex          54.473978  1.5751991092226142e-13              1
@@ -203,4 +208,13 @@ print(res.wald_test_terms())
 
 # В данном случае, показателем того, на сколько модель расходится с реальным положенимем дел
 # является RSS. В данном случаем значение RSS - колчество наблюдений, где модель расхоидтся с данными.
-print('Модель logit расходится с данными в {} случаях из {}'.format(rss_y, n))
+
+# отношения правдоподобия
+LR = 2 * (loglikelihood_logit_2 - loglikelihood_logit_1)
+chi_crit = chi.ppf(0.95, 2)
+print('статистика отношения правдоподобия {}, критическое знание chi^2(0.95,2) {}'.format(LR, chi_crit))
+
+if chi_crit < LR:
+    print('Отвергаем гипотзу о H0:(b4=b5=0) на основание теста отношнения правдоподобия')
+else:
+    print('Принимаем гипотзу о H0:(b4=b5=0) на основание теста отношнения правдоподобия')
