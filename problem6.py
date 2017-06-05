@@ -1,10 +1,8 @@
-from lib import mk_data_var, read_column_from_csv, ess, rss
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
-import statsmodels.api as sm
-from functools import reduce
+import math
+
+from lib import mk_data_var, read_column_from_csv
 
 # TODO alter this to your variant
 v_number = 1
@@ -31,19 +29,37 @@ res = model.fit()
 print(res.summary())
 
 # Проверьте значимость модели в целом
+for i in range(len(res.params)):
+    print(res.params[i])
 
+y_estimate = [1
+              if
+              math.exp(
+                  res.params[0] +
+                  res.params[1] * sex[i] +
+                  res.params[2] * class_1[i] +
+                  res.params[3] * class_2[i] +
+                  res.params[4] * class_3[i]) > 1
+              else 0
 
-#ESS=ess(su)
-#RSS=rss()
+              for i in range(len(sex))]
 
-model = smf.probit(formula="survived ~ 1 + C(sex) + C(class_1) + C(class_2) + C(class_3)", data=df)
+print(y_estimate)
+
+"""
+# ESS=ess(su)
+# RSS=rss()
+
+model = smf.logit(formula="survived ~ 1 + C(sex) + C(class_1) + C(class_2) + C(class_3)", data=df)
 res = model.fit()
 print(res.summary())
 
-model = smf.ols(formula="survived ~ 1+ C(sex) + C(class_1) + C(class_2) + C(class_3)", data=df)
+model = smf.ols(formula="survived ~ 1 + sex + class_1 + class_2 + class_3", data=df)
 res = model.fit()
 print(res.summary())
 
-model = smf.logit(formula="survived ~ 1 + C(sex) + C(class_1) + C(class_2) + C(sex * class_1) + C(sex * class_2)", data=df)
+model = smf.logit(formula="survived ~ 1 + C(sex) + C(class_1) + C(class_2) + C(sex * class_1) + C(sex * class_2)",
+                  data=df)
 res = model.fit()
 print(res.summary())
+"""
