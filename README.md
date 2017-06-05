@@ -210,6 +210,13 @@ https://www.evernote.com/shard/s267/sh/49f91974-1090-4d64-9315-60c0a1b80fc2/9bfe
 
 ![image](https://cloud.githubusercontent.com/assets/16746106/26806051/9a7031e8-4a57-11e7-994d-116dd01a97ad.png)
 
+### №3
+
+**Вопрос:** Интерпретация Pseudo R^2.
+ 
+**Ответ:** 
+
+![image](https://cloud.githubusercontent.com/assets/16746106/26806141/0ea144b2-4a58-11e7-8773-16013afcea7b.png)
 
 ### Вклад
 
