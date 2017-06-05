@@ -204,8 +204,10 @@ https://www.evernote.com/shard/s267/sh/49f91974-1090-4d64-9315-60c0a1b80fc2/9bfe
  
 **Ответ:**
 - Для Logit:
+
 ![image](https://cloud.githubusercontent.com/assets/16746106/26806002/6aab445c-4a57-11e7-8861-bc102fa3f21e.png)
 - Для линейной:
+
 ![image](https://cloud.githubusercontent.com/assets/16746106/26806051/9a7031e8-4a57-11e7-994d-116dd01a97ad.png)
 
 
