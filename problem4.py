@@ -2,7 +2,7 @@ import numpy
 import numpy.linalg as linal
 from scipy.stats import f
 from scipy.stats import t
-from lib import pearson, read_column_from_csv
+from lib import pearson, read_column_from_csv, ess, rss
 import matplotlib.pyplot as plt
 
 variation = int(input("Введите ваш вариант:"))
@@ -66,26 +66,6 @@ def get_x_matrix(var_to_calc):
     x = numpy.concatenate((x, x_3), axis=1)
     x = numpy.concatenate((x, x_4), axis=1)
     return x
-
-
-def ess(y_arr, y_arr_explained):
-    """
-    :param y_arr: input array
-    :param y_arr_explained: input array explained
-    :return: Explained sum of squares
-    """
-    mean_y = sum(y_arr) / len(y_arr)
-
-    return sum([(y_arr_explained[i] - mean_y) ** 2 for i in range(len(y_arr))])
-
-
-def rss(y_arr, y_arr_explained):
-    """
-    :param y_arr: array
-    :return: Residual sum of squares
-    """
-
-    return sum([(y_arr_explained[i] - y_arr[i]) ** 2 for i in range(len(y_arr))])
 
 
 def coefficient_variance(number_of_coefficient, y_arr, y_explained, x_matrix):
