@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 variation = int(input("Введите ваш вариант:"))
 k = 4
 n = 40
-
+file_path = 'data/4problem.csv'
 
 def ls(var_to_calc, ridge=0):
     """
@@ -35,7 +35,7 @@ def ls(var_to_calc, ridge=0):
     x_step3 = numpy.dot(x_step2, x.T)
 
     # (X^T * X)^-1 * X^T * Y
-    y_1 = read_column_from_csv(column_number=3 + (var_to_calc - 1) * 4, file='data/4problem.csv')
+    y_1 = read_column_from_csv(column_number=3 + (var_to_calc - 1) * 4, file=file_path)
     y_1 = numpy.array([y_1]).T
     coefficient_vector = numpy.dot(x_step3, y_1)
 
@@ -45,10 +45,10 @@ def ls(var_to_calc, ridge=0):
 def get_x_matrix(var_to_calc):
     var_to_calc -= 1
 
-    x_2 = read_column_from_csv(column_number=0 + var_to_calc * 4, file='data/4problem.csv')
-    x_3 = read_column_from_csv(column_number=1 + var_to_calc * 4, file='data/4problem.csv')
-    x_4 = read_column_from_csv(column_number=2 + var_to_calc * 4, file='data/4problem.csv')
-    y_1 = read_column_from_csv(column_number=3 + var_to_calc * 4, file='data/4problem.csv')
+    x_2 = read_column_from_csv(column_number=0 + var_to_calc * 4, file=file_path)
+    x_3 = read_column_from_csv(column_number=1 + var_to_calc * 4, file=file_path)
+    x_4 = read_column_from_csv(column_number=2 + var_to_calc * 4, file=file_path)
+    y_1 = read_column_from_csv(column_number=3 + var_to_calc * 4, file=file_path)
 
     len_of_data = len(y_1)
 
@@ -107,10 +107,10 @@ print()
 
 print("2. Проверьте значимость регрессии в целом")
 print()
-x_2 = read_column_from_csv(column_number=0 + (variation - 1) * 4, file='data/4problem.csv')
-x_3 = read_column_from_csv(column_number=1 + (variation - 1) * 4, file='data/4problem.csv')
-x_4 = read_column_from_csv(column_number=2 + (variation - 1) * 4, file='data/4problem.csv')
-y_1 = read_column_from_csv(column_number=3 + (variation - 1) * 4, file='data/4problem.csv')
+x_2 = read_column_from_csv(column_number=0 + (variation - 1) * 4, file=file_path)
+x_3 = read_column_from_csv(column_number=1 + (variation - 1) * 4, file=file_path)
+x_4 = read_column_from_csv(column_number=2 + (variation - 1) * 4, file=file_path)
+y_1 = read_column_from_csv(column_number=3 + (variation - 1) * 4, file=file_path)
 
 y_estimation = [coefficient_vector[0]
                 + coefficient_vector[1] * x_2[i]
@@ -184,8 +184,8 @@ rss_r = rss(y_1, y_estimation_r)
 f_r_critical = f.ppf(0.95, q, n - k)
 f_r_real = (rss_r - rss_ur) / q / (rss_ur / (n - k))
 
-print('F (95%, q, n-k) is {}'.format(f_crit))
-print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_real))
+print('F (95%, q, n-k) is {}'.format(f_r_critical))
+print('(rss_r - rss_ur) / q / (rss_ur / (n - k)) is {}'.format(f_r_real))
 
 if f_r_critical < f_r_real:
     print('Отвергаем гипотезу  о совместной значимости коэффициентов при переменных x3 и x4')
