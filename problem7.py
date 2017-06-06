@@ -2,6 +2,7 @@ from math import sqrt
 from random import randrange
 
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import savefig
 
 """ 
     В таблице с данными содержатся координаты x и y точек некоторого изображения
@@ -12,16 +13,50 @@ import matplotlib.pyplot as plt
     """
 
 
-def draw_plot(x, y, color='r'):
+def draw_plot(x, y):
     """
-    method draws starting plot. without clustering. 
+    method draws and saves starting plot. without clustering. 
     :param x: x data set
     :param y: y data set
     :param color: 
-    :return: 
+    :return: void
     """
-    plt.plot(x, y, "k.", markersize=3)
-    plt.show()
+    plt.plot(x, y, "k.", markersize=4)
+    plt.title("Starting image")
+    savefig('starting_image.png')
+
+
+def draw_clusters(clusters):
+    """
+    this methods draws all clusters and saves picture
+    :param clusters: 
+    :return: void
+    """
+    clusrs = restructure_clusters(clusters)
+    colours = ['r.', 'k.', 'b.', 'g.', 'y.', 'c.']
+    plt.title("Clusters")
+    for i in range(len(clusrs)):
+        plt.plot(clusrs[i][0], clusrs[i][1], colours[i])
+
+    savefig('clusters_' + str(len(clusters)) + '.png')
+
+
+def restructure_clusters(clusters):
+    """
+    since clusters looks like [[(x,y)..(x,y)],..[(x,y)..(x,y)]] we need to restructure them to use in plot
+    :param clusters: 
+    :return: clusters which looks like [[[x1..xn]]]
+    """
+    clusrs = [[] for i in range(len(clusters))]
+    for i in range(len(clusters)):
+        X = []
+        Y = []
+        for j in range(len(clusters[i])):
+            X.append(clusters[i][j][0])
+            Y.append(clusters[i][j][1])
+        clusrs[i].append(X)
+        clusrs[i].append(Y)
+    return clusrs
 
 
 def calc_euclid(x1, y1, x2, y2):
@@ -92,8 +127,8 @@ def clustering(k, x, y):
                 sx += clusters[i][j][0]
                 sy += clusters[i][j][1]
             if len(clusters[i]) > 0:  # situation when cluster is empty is possible
-                centers[i][0] = round(sx / len(clusters[i]), 4)
-                centers[i][1] = round(sy / len(clusters[i]), 4)
+                centers[i][0] = round(sx / len(clusters[i]), 5)
+                centers[i][1] = round(sy / len(clusters[i]), 5)
 
         is_continue = False
         for i in range(len(centers)):  # decide must we continue or not
@@ -103,10 +138,14 @@ def clustering(k, x, y):
 
     return clusters
 
-# TODO: add parsing task table. I used this only for my variant
+#  TODO: add parsing tables
+#  В принципе, программа готова к использованию
+#  Нужно только рядом с этим файлом положить два файла .txt
+#  В первом файле X.txt в столбик должны быть все данные X
+#  Во втором файле Y.txt в столбик должны быть все данные Y
 X = [int(line) for line in open("X.txt")]
 Y = [int(line) for line in open("Y.txt")]
 draw_plot(X, Y)
-clusters = clustering(3, X, Y)  # idk why, but sometimes it doesn't work for 4 clusters
-# TODO: add drawing clusters
-# also SEE https://stackoverflow.com/questions/31137077/how-to-make-a-scatter-plot-for-clustering-in-python
+for k in range(2, 5):
+    clusters = clustering(k, X, Y)
+    draw_clusters(clusters)
