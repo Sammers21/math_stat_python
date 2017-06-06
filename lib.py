@@ -1,7 +1,36 @@
 import csv
 
 
-def read_column_from_csv(column_number, file, type='f'):
+def mk_data_var(variant):
+    col_store = []
+
+    col_store.append(read_column_from_csv(0 + (variant - 1) * 5, 'data/6problem.csv', type='r', pop=False))
+    col_store.append(read_column_from_csv(1 + (variant - 1) * 5, 'data/6problem.csv', type='r', pop=False))
+    col_store.append(read_column_from_csv(2 + (variant - 1) * 5, 'data/6problem.csv', type='r', pop=False))
+    col_store.append(read_column_from_csv(3 + (variant - 1) * 5, 'data/6problem.csv', type='r', pop=False))
+    col_store.append(read_column_from_csv(4 + (variant - 1) * 5, 'data/6problem.csv', type='r', pop=False))
+
+    res = ''
+    for i in range(len(col_store[0])):
+        st = ''
+        for y in range(5):
+            st += col_store[y][i]
+
+        if len(st) >= 4:
+            for y in range(4):
+                res += col_store[y][i] + ','
+
+            res += col_store[4][i] + '\n'
+
+    write_file('data/6problem_{}.csv'.format(variant), res)
+
+
+def write_file(filename, text):
+    with open(filename, 'w') as f:
+        f.write(text)
+
+
+def read_column_from_csv(column_number, file, type='f', pop=True):
     column_array = []
     # read file
     with open(file) as f:
@@ -10,12 +39,15 @@ def read_column_from_csv(column_number, file, type='f'):
         column_array = [row[column_number] for row in reader]
 
         # pop string element like 'x2_1'
-        column_array.pop(0)
+        if pop:
+            column_array.pop(0)
 
         # make values float
-        print(column_array)
         if type == 'f':
             column_array = list(map(lambda x: float(x), column_array))
+        # make values int
+        if type == 'i':
+            column_array = list(map(lambda x: int(x), column_array))
 
     return column_array
 
@@ -147,3 +179,22 @@ def spearman(x, y):
         sum_of_d += (i - rank_Y_arr[i - 1]) ** 2
 
     return 1 - 6 * sum_of_d / (50 * (50 ** 2 - 1))
+
+def ess(y_arr, y_arr_explained):
+    """
+    :param y_arr: input array
+    :param y_arr_explained: input array explained
+    :return: Explained sum of squares
+    """
+    mean_y = sum(y_arr) / len(y_arr)
+
+    return sum([(y_arr_explained[i] - mean_y) ** 2 for i in range(len(y_arr))])
+
+
+def rss(y_arr, y_arr_explained):
+    """
+    :param y_arr: array
+    :return: Residual sum of squares
+    """
+
+    return sum([(y_arr_explained[i] - y_arr[i]) ** 2 for i in range(len(y_arr))])

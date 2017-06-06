@@ -16,3 +16,5 @@ script:
   - python -m py_compile problem3.py
   - python -m py_compile problem4.py
   - python -m py_compile problem5.py
+  - python -m py_compile problem6.py
+  - python -m py_compile problem7.py
