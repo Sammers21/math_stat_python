@@ -10,23 +10,26 @@ k = 4
 n = 40
 file_path = 'data/4problem.csv'
 
-def ls(var_to_calc, ridge=0):
+def ls(var_to_calc, ridge=0, restricted=False):
     """
     :param ridge: ridge coefficient
     :param var_to_calc: variant from 1 to 10
+    :param restricted: model with restriction or not
     :return: array of LS(least squares) coefficients
     """
 
-    x = get_x_matrix(var_to_calc)
+    x = get_x_matrix(var_to_calc, restricted)
 
     # (X^T * X)
     # numpy.dot is a matrix multiplication
 
     # if ridge is none 0
-    ar = numpy.zeros((4, 4), float)
-    numpy.fill_diagonal(ar, float(ridge))
-
-    x_step1 = numpy.dot(x.T, x) + ar
+    if not restricted:
+        ar = numpy.zeros((4, 4), float)
+        numpy.fill_diagonal(ar, float(ridge))
+        x_step1 = numpy.dot(x.T, x) + ar
+    else:
+        x_step1 = numpy.dot(x.T, x)
 
     # (X^T * X)^-1
     x_step2 = linal.inv(x_step1)
@@ -42,7 +45,7 @@ def ls(var_to_calc, ridge=0):
     return coefficient_vector.T[0]
 
 
-def get_x_matrix(var_to_calc):
+def get_x_matrix(var_to_calc, restricted=False):
     var_to_calc -= 1
 
     x_2 = read_column_from_csv(column_number=0 + var_to_calc * 4, file=file_path)
@@ -63,8 +66,9 @@ def get_x_matrix(var_to_calc):
     y_1 = numpy.array([y_1]).T
 
     x = numpy.concatenate((x, x_2), axis=1)
-    x = numpy.concatenate((x, x_3), axis=1)
-    x = numpy.concatenate((x, x_4), axis=1)
+    if not restricted:
+        x = numpy.concatenate((x, x_3), axis=1)
+        x = numpy.concatenate((x, x_4), axis=1)
     return x
 
 
@@ -168,8 +172,10 @@ print()
 # it is the same model but assuming that x3 and x4 is equals to 0
 # that is what we called r(Restricted by some condition like x3 = x4 = 0)
 
-y_estimation_r = [coefficient_vector[0]
-                  + coefficient_vector[1] * x_2[i]
+coefficient_vector_r = ls(variation, restricted=True)
+
+y_estimation_r = [coefficient_vector_r[0]
+                  + coefficient_vector_r[1] * x_2[i]
                   for i in range(40)]
 
 q = 2  # count of "=" in condition
