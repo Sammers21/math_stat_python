@@ -53,6 +53,16 @@ y_estimate = [1
 
               for i in range(len(sex))]
 
+chance_logit = [
+    math.exp(
+        res.params[0] +
+        res.params[1] * sex[i] +
+        res.params[2] * class_1[i] +
+        res.params[3] * class_2[i])
+    for i in range(len(sex))]
+
+print("шанс выжить logit {}".format(chance_logit))
+
 ess_y = ess(survived, y_estimate)
 rss_y = rss(survived, y_estimate)
 k = 4  # кол-во коэффициентов (с учётом свободного)
@@ -62,9 +72,9 @@ f_crit = f.ppf(0.95, k - 1, n - k)
 f_real = ess_y / (k - 1) / (rss_y / (n - k))
 
 if f_crit < f_real:
-    print('Отвергаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
+    print('Отвергаем гипотзу о значимости модели регрессии в целом H0:(b2=b3=b4=0)')
 else:
-    print('Принмаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
+    print('Принмаем гипотзу о значимости модели регрессии в целом H0:(b2=b3=b4=0)')
 
 # В данном случае, показателем того, на сколько модель расходится с реальным положенимем дел
 # является RSS. В данном случаем значение RSS - колчество наблюдений, где модель расхоидтся с данными.
@@ -98,6 +108,22 @@ y_estimate = [1
 
               for i in range(len(sex))]
 
+chance_probit = [
+    norm.cdf(
+        res.params[0] +
+        res.params[1] * sex[i] +
+        res.params[2] * class_1[i] +
+        res.params[3] * class_2[i])
+    /
+    (1 - norm.cdf(
+        res.params[0] +
+        res.params[1] * sex[i] +
+        res.params[2] * class_1[i] +
+        res.params[3] * class_2[i]))
+    for i in range(len(sex))]
+
+print("Шанс выжить probit {}".format(chance_probit))
+
 ess_y = ess(survived, y_estimate)
 rss_y = rss(survived, y_estimate)
 
@@ -105,9 +131,9 @@ f_crit = f.ppf(0.95, k - 1, n - k)
 f_real = ess_y / (k - 1) / (rss_y / (n - k))
 
 if f_crit < f_real:
-    print('Отвергаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
+    print('Отвергаем гипотзу о значимости модели регрессии в целом H0:(b2=b3=b4=0)')
 else:
-    print('Принмаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
+    print('Принмаем гипотзу о значимости модели регрессии в целом H0:(b2=b3=b4=0)')
 
 # В данном случае, показателем того, на сколько модель расходится с реальным положенимем дел
 # является RSS. В данном случаем значение RSS - колчество наблюдений, где модель расхоидтся с данными.
@@ -140,6 +166,19 @@ y_estimate = [1
               else 0
 
               for i in range(len(sex))]
+chance_ols = [res.params[0] +
+              res.params[1] * sex[i] +
+              res.params[2] * class_1[i] +
+              res.params[3] * class_2[i]
+              /
+              (1 -
+               res.params[0] +
+               res.params[1] * sex[i] +
+               res.params[2] * class_1[i] +
+               res.params[3] * class_2[i])
+              for i in range(len(sex))]
+
+print('шанс выжить ols {}'.format(chance_ols))
 
 ess_y = ess(survived, y_estimate)
 rss_y = rss(survived, y_estimate)
@@ -148,9 +187,9 @@ f_crit = f.ppf(0.95, k - 1, n - k)
 f_real = ess_y / (k - 1) / (rss_y / (n - k))
 
 if f_crit < f_real:
-    print('Отвергаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
+    print('Отвергаем гипотзу о значимости модели регрессии в целом H0:(b2=b3=b4=0)')
 else:
-    print('Принмаем гипотзу о значимости модели регрессии в целом H0:(b1=b2=b3=b4=0)')
+    print('Принмаем гипотзу о значимости модели регрессии в целом H0:(b2=b3=b4=0)')
 
 # В данном случае, показателем того, на сколько модель расходится с реальным положенимем дел
 # является RSS. В данном случаем значение RSS - колчество наблюдений, где модель расхоидтся с данными.
