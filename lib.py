@@ -42,6 +42,10 @@ def read_column_from_csv(column_number, file, type='f', pop=True):
         if pop:
             column_array.pop(0)
 
+        while column_array[len(column_array) - 1] == '':
+            column_array.pop(len(column_array) - 1)
+
+
         # make values float
         if type == 'f':
             column_array = list(map(lambda x: float(x), column_array))
@@ -179,6 +183,7 @@ def spearman(x, y):
         sum_of_d += (i - rank_Y_arr[i - 1]) ** 2
 
     return 1 - 6 * sum_of_d / (50 * (50 ** 2 - 1))
+
 
 def ess(y_arr, y_arr_explained):
     """

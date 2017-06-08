@@ -3,6 +3,10 @@ from random import randrange
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import savefig
+from lib import read_column_from_csv
+
+# TODO alter this to your variant
+v_number = 1
 
 """ 
     В таблице с данными содержатся координаты x и y точек некоторого изображения
@@ -138,13 +142,9 @@ def clustering(k, x, y):
 
     return clusters
 
-#  TODO: add parsing tables
-#  В принципе, программа готова к использованию
-#  Нужно только рядом с этим файлом положить два файла .txt
-#  В первом файле X.txt в столбик должны быть все данные X
-#  Во втором файле Y.txt в столбик должны быть все данные Y
-X = [int(line) for line in open("X.txt")]
-Y = [int(line) for line in open("Y.txt")]
+
+X = read_column_from_csv(0 + (v_number - 1) * 2, 'data/7problem.csv')
+Y = read_column_from_csv(1 + (v_number - 1) * 2, 'data/7problem.csv')
 draw_plot(X, Y)
 for k in range(2, 5):
     clusters = clustering(k, X, Y)
