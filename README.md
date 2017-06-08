@@ -25,6 +25,9 @@ https://www.evernote.com/shard/s267/sh/49f91974-1090-4d64-9315-60c0a1b80fc2/9bfe
 **Номеру 6:**
 http://telegra.ph/Zadacha-6-06-06
 
+**Номеру 7:**
+http://telegra.ph/Zadanie-7-06-08
+
 # Вопросы к заданию номер 1
 
 ### №1

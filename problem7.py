@@ -9,12 +9,17 @@ from lib import read_column_from_csv
 v_number = 1
 
 """ 
+    ЗАДАНИЕ
+    
     В таблице с данными содержатся координаты x и y точек некоторого изображения
     (давайте считать, что это обработанное фото трёх монеток с зашумлением). 
     Примените к данным вашего варианта метод k-средних, перебирая число кластеров k = 2, 3, 4. 
     Для каждого k изобразите полученное разбиение на графике, выделяя кластеры разными цветами.
     По графикам оцените, насколько удалось распознать образы монеток.
-    """
+    
+    
+    Вывод скрипта можете найти в виде фотокгафий в текуще директории
+"""
 
 
 def draw_plot(x, y):
@@ -26,7 +31,6 @@ def draw_plot(x, y):
     :return: void
     """
     plt.plot(x, y, "k.", markersize=4)
-    plt.title("Starting image")
     savefig('starting_image.png')
 
 
@@ -38,7 +42,6 @@ def draw_clusters(clusters):
     """
     clusrs = restructure_clusters(clusters)
     colours = ['r.', 'k.', 'b.', 'g.', 'y.', 'c.']
-    plt.title("Clusters")
     for i in range(len(clusrs)):
         plt.plot(clusrs[i][0], clusrs[i][1], colours[i])
 
